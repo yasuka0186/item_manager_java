@@ -46,7 +46,8 @@ public class ItemController {
 
 	// 商品登録の実行
 	@PostMapping("toroku")
-	public String toroku() {
+	public String toroku(ItemForm itemForm) {
+		this.itemService.save(itemForm);
 		return "redirect:/item";
 	}
 
