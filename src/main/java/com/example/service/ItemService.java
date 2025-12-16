@@ -1,6 +1,8 @@
 package com.example.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,38 @@ public class ItemService {
 		item.setPrice(itemForm.getPrice());
 
 		return this.itemRepository.save(item);
+	}
+
+	// 更新のための商品情報取得
+	public Item findById(Integer id) {
+		Optional<Item> optionalItem = this.itemRepository.findById(id);
+		Item item = optionalItem.get();
+
+		return item;
+	}
+
+	// 商品情報の更新実行
+	public Item update(Integer id, ItemForm itemForm) {
+		Item item = this.findById(id);
+		item.setName(itemForm.getName());
+		item.setPrice(itemForm.getPrice());
+
+		return this.itemRepository.save(item);
+	}
+
+	// 商品情報の削除
+	public Item delete(Integer id) {
+		// idから該当のEntityクラスを取得
+		Item item = this.findById(id);
+		// EntityクラスのdeletedAtフィールドを現在日時で上書き
+		item.setDeletedAt(LocalDateTime.now());
+
+		// 更新処理
+		return this.itemRepository.save(item);
+	}
+
+	// 論理削除
+	public List<Item> findByDeletedAtIsNull() {
+		return this.itemRepository.findByDeletedAtIsNull();
 	}
 }

@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,9 @@ public class Item {
 	@Column(name = "PRICE")
 	private Integer price;
 
+	@Column(name = "DELETED_AT")
+	private LocalDateTime deletedAt;
+
 	public Integer getId() {
 		return id;
 	}
@@ -46,5 +51,13 @@ public class Item {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public LocalDateTime getDeletedAt() {
+		return this.deletedAt;
+	}
+
+	public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
 	}
 }
