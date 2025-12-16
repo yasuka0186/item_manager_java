@@ -31,6 +31,8 @@ public class ItemController {
 	public String index(Model model) {
 		// データの疎通確認
 		List<Item> items = this.itemService.findAll();
+		// 画面で利用する変数としてitemsをセット
+		model.addAttribute("items", items);
 		// コンソールよりListの中身を確認する
 		System.out.println(items.toString());
 		return "item/index";
