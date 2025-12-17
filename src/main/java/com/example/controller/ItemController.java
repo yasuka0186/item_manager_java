@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.entity.Category;
 import com.example.entity.Item;
 import com.example.form.ItemForm;
+import com.example.service.CategoryService;
 import com.example.service.ItemService;
 
 @Controller
@@ -20,10 +22,12 @@ import com.example.service.ItemService;
 public class ItemController {
 
 	private final ItemService itemService;
+	private final CategoryService categoryService;
 
 	@Autowired
-	public ItemController(ItemService itemService) {
+	public ItemController(ItemService itemService, CategoryService categoryService) {
 		this.itemService = itemService;
+		this.categoryService = categoryService;
 	}
 
 	// 商品一覧表示
@@ -43,7 +47,10 @@ public class ItemController {
 
 	// 商品登録ページ
 	@GetMapping("toroku")
-	public String torokuPage(ItemForm itemForm) {
+	public String torokuPage(@ModelAttribute("itemForm") ItemForm itemForm, Model model) {
+		// Cateogyモデルから一覧を取得
+		List<Category> categories = this.categoryService.findAll();
+		model.addAttribute("categories", categories);
 		return "item/torokuPage";
 	}
 
@@ -63,7 +70,12 @@ public class ItemController {
 		// フィールドセット
 		itemForm.setName(item.getName());
 		itemForm.setPrice(item.getPrice());
+		itemForm.setCategoryId(item.getCategoryId());
+		
+		List<Category> categories = this.categoryService.findAll();
+		
 		model.addAttribute("id", id);
+		model.addAttribute("categories", categories);
 
 		return "item/henshuPage";
 	}
