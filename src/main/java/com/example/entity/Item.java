@@ -33,7 +33,10 @@ public class Item {
 
 	@Column(name = "CATEGORY_ID")
 	private Integer categoryId;
-
+	
+	@Column(name = "STOCK")
+	private Integer stock;
+	
 	@ManyToOne
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
@@ -80,5 +83,13 @@ public class Item {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 }

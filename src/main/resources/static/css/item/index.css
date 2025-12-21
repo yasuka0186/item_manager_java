@@ -1,0 +1,67 @@
+/* 一覧ページ用の色を定義します */
+:root {
+    --thead-color: #08FFC8;
+}
+
+/* コンテンツ内の見出しを調整する */
+.contents h1 {
+    margin: 30px 50px;
+}
+
+/* コンテンツ領域の中央寄せ + 幅制限 */
+.contents {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px; /* 左右の余白 */
+}
+
+/* 見出しの余白を固定値から相対に */
+.contents h1 {
+  margin: 30px 0;
+}
+
+/* テーブル全体の設定をします */
+.tbl {
+    margin: 0 auto;
+    width: 85%;
+    background-color: white;
+    border-spacing: 0;
+}
+
+/* テーブルヘッダーの色を指定します */
+.tbl thead {
+    background-color: var(--thead-color);
+}
+
+/* tbl-xxごとに横幅を指定し、テーブル全体のバランスを整えます */
+.tbl-form {
+    width: 50%;
+}
+
+.tbl-stock-btn {
+    width: 20%;
+}
+
+.tbl-stock {
+    width: 30%;
+}
+
+.tbl-btn {
+    width: 100%;
+}
+
+/* セル内で勝手に改行させない（在庫が「在\n庫」になるのも防ぐ） */
+.tbl th, .tbl td {
+  white-space: nowrap;
+}
+
+/* 幅計算に border/padding を含める（%指定の“はみ出し”を減らす） */
+.tbl input, .tbl button, .tbl select {
+  box-sizing: border-box;
+}
+
+/* 在庫操作列（6列目）に最低幅を確保（ここが狭いと必ず崩れる） */
+.tbl th:nth-child(6),
+.tbl td:nth-child(6) {
+  min-width: 260px; /* ここは好みで 240〜320 で調整 */
+}
